@@ -1,0 +1,7 @@
+# Ignore Vercel build output
+.vercel
+output
+
+/dist
+
+node_modules
