@@ -1,7 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router";
+import gsap from "gsap";
 
 interface Service {
   title: string;
@@ -15,10 +16,12 @@ interface ServicesCarouselProps {
 
 const ServicesCarousel: React.FC<ServicesCarouselProps> = ({ services }) => {
   const navigate = useNavigate();
+  const titleRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const controlsRef = useRef<HTMLDivElement>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     slidesToScroll: 1,
     containScroll: "trimSnaps",
-    // slidesPerView: 1,
     align: "start",
     breakpoints: {
       "(min-width: 768px) and (max-width: 1023px)": { align: "start" },
@@ -36,7 +39,7 @@ const ServicesCarousel: React.FC<ServicesCarouselProps> = ({ services }) => {
   }, [emblaApi]);
 
   // Auto-play functionality
-  React.useEffect(() => {
+  useEffect(() => {
     if (!emblaApi) return;
 
     const interval = setInterval(() => {
@@ -46,15 +49,61 @@ const ServicesCarousel: React.FC<ServicesCarouselProps> = ({ services }) => {
     return () => clearInterval(interval);
   }, [emblaApi]);
 
+  useEffect(() => {
+    // Ensure clean animation timeline
+    const ctx = gsap.context(() => {
+      // Animate title
+      gsap.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
+      );
+
+      // Animate controls
+      gsap.fromTo(
+        controlsRef.current,
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.8, delay: 0.2, ease: "power3.out" }
+      );
+
+      // Animate service cards
+      gsap.fromTo(
+        ".service-card",
+        {
+          opacity: 0,
+          y: 50,
+          scale: 0.95,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power3.out",
+          delay: 0.4,
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert(); // Cleanup
+  }, []);
+
   return (
     <section id="services" className="w-full py-12 md:py-16 lg:py-24">
-      <div className="my-container w-full max-w-7xl mx-auto px-4">
+      <div
+        ref={containerRef}
+        className="my-container w-full max-w-7xl mx-auto px-4"
+      >
         <div className="flex items-center justify-between mb-8 px-4">
-          <div className="uppercase text-3xl font-semibold font-redHatDisplay leading-10">
+          <div
+            ref={titleRef}
+            className="uppercase text-3xl font-semibold font-redHatDisplay leading-10"
+          >
             Our Service
           </div>
 
-          <div className="flex gap-5">
+          <div ref={controlsRef} className="flex gap-5">
             <div
               className="border border-my-purple text-my-purple w-12 h-12 max-h-12 max-w-12 rounded-full flex items-center justify-center hover:shadow-myshadow1 transition-all cursor-pointer"
               onClick={scrollPrev}
@@ -77,7 +126,7 @@ const ServicesCarousel: React.FC<ServicesCarouselProps> = ({ services }) => {
                 key={index}
                 className="embla__slide px-4 flex-shrink-0 w-full md:w-1/2 lg:w-1/3"
               >
-                <div className="border-2 border-my-purple rounded-lg py-12 px-6 md:px-10 lg:px-16 flex flex-col h-full transition-all min-h-64 md:min-h-80 lg:min-h-96">
+                <div className="service-card border-2 border-my-purple rounded-lg py-12 px-6 md:px-10 lg:px-16 flex flex-col h-full transition-all min-h-64 md:min-h-80 lg:min-h-96">
                   <div className="text-2xl lg:text-3xl font-semibold font-redHatDisplay leading-10 text-center">
                     {service.title}
                   </div>

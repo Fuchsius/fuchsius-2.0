@@ -15,15 +15,15 @@ import HeroSection from "./hero-section";
 import { TiTick } from "react-icons/ti";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/swiper-bundle.css';  // Swiper CSS
+import "swiper/swiper-bundle.css"; // Swiper CSS
 // import 'swiper/modules/pagination/pagination.css';
 
 import { Autoplay } from "swiper/modules";
 
-
 import ScrollToSection from "@/components/ScrollToSection";
 
 import { useLocation } from "react-router-dom";
+import AboutSection from "./about-section";
 
 export const LOGOS = [
   "/assets/logos/travelgate.svg",
@@ -58,19 +58,34 @@ export const OUR_TEAM = [
     role: "UI UX Designer",
     image: "/assets/team/4.png",
   },
-
 ];
-
 
 const HomePage = () => {
   const OPTIONS: EmblaOptionsType = { loop: true };
 
   // const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
   const SLIDES = [
-    { id: 1, name: 'Sangeeth Prabhu', role: 'Founder Salon Prabhu', description: "Working with Fuchsius was a great experience. They delivered a modern, user-friendly website for Prabhu.lk that perfectly matches our vision. Highly recommended!" },
-    { id: 2, name: 'Ashara Chamodi', role: 'Founder Emi Fashion', description: "Fuchsius did an outstanding job on our website. They delivered a stylish, responsive site for EMI Fashion that perfectly aligns with our brand. We’re very happy with the result and recommend them without hesitation!" },
-    { id: 2, name: 'Praneetha', role: 'Founder Praneetha Foods', description: "We are very happy with the work done by Fuchsius Pvt Ltd on our website. They created a clean, easy-to-use site for Praneetha Foods that meets all our needs. We highly recommend their services!" },
-
+    {
+      id: 1,
+      name: "Sangeeth Prabhu",
+      role: "Founder Salon Prabhu",
+      description:
+        "Working with Fuchsius was a great experience. They delivered a modern, user-friendly website for Prabhu.lk that perfectly matches our vision. Highly recommended!",
+    },
+    {
+      id: 2,
+      name: "Ashara Chamodi",
+      role: "Founder Emi Fashion",
+      description:
+        "Fuchsius did an outstanding job on our website. They delivered a stylish, responsive site for EMI Fashion that perfectly aligns with our brand. We’re very happy with the result and recommend them without hesitation!",
+    },
+    {
+      id: 2,
+      name: "Praneetha",
+      role: "Founder Praneetha Foods",
+      description:
+        "We are very happy with the work done by Fuchsius Pvt Ltd on our website. They created a clean, easy-to-use site for Praneetha Foods that meets all our needs. We highly recommend their services!",
+    },
   ];
 
   const location = useLocation();
@@ -79,13 +94,10 @@ const HomePage = () => {
     if (location.hash === "") {
       window.scrollTo(0, 0);
     }
-
   }, [location]);
-
 
   return (
     <>
-
       <Header />
 
       <ScrollToSection />
@@ -94,53 +106,7 @@ const HomePage = () => {
 
       <ServicesCarousel services={SERVICES} />
 
-      <section id="about" className="w-full py-12 md:py-16 lg:py-24">
-        <div className="my-container w-full">
-          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-x-24 gap-y-8">
-            {/* Image and overlay section */}
-            <div className="w-full max-w-xl mx-auto relative aspect-square">
-              <div className="w-full flex justify-center sm:block">
-                <img
-                  className="w-[80%] aspect-square object-cover rounded-xl"
-                  src="/assets/team/group.jpg"
-                  alt="About Us"
-                />
-              </div>
-              <div className="w-full p-12 absolute max-w-md bottom-0 right-0 bg-slate-900/80 backdrop-blur-md rounded-[20px]">
-                <p className="text-sm md:text-base ">
-                  We provide custom software, IT consulting, web and mobile apps, cloud solutions, cybersecurity, and AI technologies to help your business grow.
-                </p>
-                <a href="#services" className=" flex gap-2 items-center mt-4 underline underline-offset-2 justify-center lg:justify-start">
-                  Service <img src="/assets/images/CTAButton.svg" alt="" className="rotate-180" />
-                </a>
-              </div>
-            </div>
-
-            {/* Text content section */}
-            <div className="w-full flex flex-col justify-start items-start gap-3 md:gap-5 mt-8 lg:mt-0">
-              <div className="self-stretch text-violet-600 text-lg md:text-xl font-semibold font-['Poppins'] uppercase tracking-widest">
-                About us
-              </div>
-              <div className="self-stretch">
-                <span className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal font-redHatDisplay leading-tight md:leading-snug lg:leading-[62.40px]">
-                  We Are Increasing
-                  <br className="hidden md:block" />
-                  Business Success with
-                  <br className="hidden md:block" />
-                </span>
-                <span className="text-purple-300 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal font-redHatDisplay leading-tight md:leading-snug lg:leading-[62.40px]">
-                  IT Solution.
-                </span>
-              </div>
-              <div className="">
-                <p>
-                  At Fuchsius Pvt Ltd., we specialize in Empowering Future-Focused Solutions. Our mission is to provide innovative IT services that help businesses succeed in a rapidly evolving digital world. With a team of experts, we offer tailored, forward-thinking solutions that enable our clients to stay ahead of the curve and achieve sustainable growth. Partner with us to unlock the full potential of your business and navigate the future with confidence.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AboutSection />
 
       <div className="w-full py-12 md:py-16 lg:py-24">
         <div className="my-container">
@@ -311,7 +277,9 @@ const HomePage = () => {
                 <div className="embla__slide h-full mt-3">
                   <div className="min-h-20 h-full ">
                     <div className="text-white text-5xl font-normal font-redHatDisplay leading-tight md:leading-snug lg:leading-[62.40px]">
-                      <span className="text-purple-300 mr-3 ">Client Experiences </span>
+                      <span className="text-purple-300 mr-3 ">
+                        Client Experiences{" "}
+                      </span>
                       <br /> with Fuchsius
                     </div>
                   </div>
@@ -405,10 +373,7 @@ const HomePage = () => {
                 }}
               >
                 {LOGOS.map((logo, index) => (
-                  <SwiperSlide
-                    key={index}
-                    className="flex h-10 justify-center"
-                  >
+                  <SwiperSlide key={index} className="flex h-10 justify-center">
                     <a href="#" className="flex justify-center">
                       <img
                         src={logo}
