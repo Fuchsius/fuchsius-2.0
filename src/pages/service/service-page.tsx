@@ -12,13 +12,19 @@ import { FaArrowRight } from "react-icons/fa";
 import { BiSupport } from "react-icons/bi";
 import { FaRegLightbulb } from "react-icons/fa";
 import FAQSection from "./FAQSection";
-
 import { useLocation } from "react-router-dom";
+import gsap from "gsap";
 
 const ServicePage = () => {
   const leftBallRef = useRef(null);
   const centerBallRef = useRef(null);
   const rightBallRef = useRef(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const breadcrumbRef = useRef<HTMLHeadingElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const benefitsRef = useRef<HTMLDivElement>(null);
+  const servicesListRef = useRef<HTMLDivElement>(null);
 
   const location = useLocation();
 
@@ -76,6 +82,124 @@ const ServicePage = () => {
   useEffect(() => {
     getData();
   }, [params]);
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      // Timeline for hero animations
+      const heroTimeline = gsap.timeline();
+
+      heroTimeline
+        .fromTo(
+          [leftBallRef.current, rightBallRef.current],
+          {
+            opacity: 0,
+            scale: 0.5,
+          },
+          {
+            opacity: 0.9,
+            scale: 1,
+            duration: 1.5,
+            ease: "power2.out",
+          }
+        )
+        .fromTo(
+          titleRef.current,
+          {
+            opacity: 0,
+            y: 50,
+            scale: 0.9,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+          },
+          "-=1"
+        )
+        .fromTo(
+          breadcrumbRef.current,
+          {
+            opacity: 0,
+            y: 20,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.5"
+        );
+
+      // Content section animations
+      gsap.fromTo(
+        contentRef.current?.children || [],
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.2,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Benefits section animations
+      gsap.fromTo(
+        benefitsRef.current?.children || [],
+        {
+          opacity: 0,
+          x: -30,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          stagger: 0.2,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: benefitsRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Services list animations
+      gsap.fromTo(
+        servicesListRef.current?.children || [],
+        {
+          opacity: 0,
+          x: 30,
+          scale: 0.95,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: servicesListRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+  }, [isLoading, data]);
+
   return (
     <>
       <Header />
@@ -89,56 +213,63 @@ const ServicePage = () => {
         </div>
       ) : (
         <>
-          <div className=" w-full overflow-x-auto relative">
+          <div className="absolute w-full h-full -top-48 z-[2]">
+            <div className="relative w-full h-full flex justify-between items-center overflow-x-hidden">
+              <div
+                ref={leftBallRef}
+                className="border object-left rotate-[-146.71deg] opacity-90 bg-gradient-to-l from-[#C60786] to-[#8400FF] 
+                  blur-[160px] rounded-full w-64 h-64 mix-blend-lighten -translate-x-[75%] "
+              />
+              {/* <div
+                  ref={centerBallRef}
+                  className="border object-center rotate-[-146.71deg] opacity-90 bg-gradient-to-l from-[#C60786] to-[#8400FF] 
+                  blur-[114.55px] rounded-full w-[480px] h-64 mix-blend-lighten "
+                  /> */}
+              <div
+                ref={rightBallRef}
+                className="border object-right rotate-[-146.71deg] opacity-90 bg-gradient-to-l from-[#C60786] to-[#8400FF] 
+                  blur-[160px] rounded-full w-64 h-64 mix-blend-lighten translate-x-[75%]"
+              />
+            </div>
+          </div>
+
+          <div className=" w-full overflow-x-hidden relative" ref={heroRef}>
             <div className=" w-full">
               <div className="my-container py-32">
                 <div className="flex flex-col items-center justify-center relative gap-7">
-                  <h1 className=" uppercase text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-redHatDisplay font-extrabold text-center bg-gradient-to-r from-my-black via-my-lightpurple to-my-black bg-clip-text text-transparent">
+                  <h1
+                    ref={titleRef}
+                    className=" uppercase text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-redHatDisplay font-extrabold text-center bg-gradient-to-r from-my-black via-my-lightpurple to-my-black bg-clip-text text-transparent"
+                  >
                     {data?.title}
                   </h1>
-                  <h6 className=" flex text-2xl lg:text-3xl font-redHatDisplay font-semibold gap-4 leading-10 text-center text-my-lightpurple">
+                  <h6
+                    ref={breadcrumbRef}
+                    className=" flex text-2xl lg:text-3xl font-redHatDisplay font-semibold gap-4 leading-10 text-center text-my-lightpurple"
+                  >
                     <Link to={"/"}>Home</Link>{" "}
                     <IoIosArrowForward className=" my-auto" /> {data?.title}
                   </h6>
                 </div>
               </div>
-              <div className="absolute w-full h-full top-0 z-0">
-                <div className="relative w-full h-full flex justify-center items-center">
-                  <div
-                    ref={leftBallRef}
-                    className="border object-left rotate-[-146.71deg] opacity-90 bg-gradient-to-l from-[#C60786] to-[#8400FF] 
-                  blur-[160px] rounded-full w-64 h-64 mix-blend-lighten -translate-x-[75%] "
-                  />
-                  {/* <div
-                  ref={centerBallRef}
-                  className="border object-center rotate-[-146.71deg] opacity-90 bg-gradient-to-l from-[#C60786] to-[#8400FF] 
-                  blur-[114.55px] rounded-full w-[480px] h-64 mix-blend-lighten "
-                  /> */}
-                  <div
-                    ref={rightBallRef}
-                    className="border object-right rotate-[-146.71deg] opacity-90 bg-gradient-to-l from-[#C60786] to-[#8400FF] 
-                  blur-[160px] rounded-full w-64 h-64 mix-blend-lighten translate-x-[75%]"
-                  />
-                </div>
-              </div>
             </div>
           </div>
 
-          <div className=" my-container flex flex-col sm:flex-row py-12 gap-5">
+          <div className=" my-container flex flex-col sm:flex-row py-12 gap-5 ">
             <div className=" flex flex-col w-full gap-12">
-              <div className=" flex flex-col gap-5">
-                <h1 className="text-my-lightpurple2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal font-redHatDisplay leading-tight md:leading-snug lg:leading-[62.40px] mb-3">
+              <div ref={contentRef} className=" flex flex-col gap-5">
+                <h1 className="text-my-lightpurple2 z-10 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal font-redHatDisplay leading-tight md:leading-snug lg:leading-[62.40px] mb-3">
                   {data?.title}
                 </h1>
                 {data?.paragraph.map((para: string, index: number) => (
-                  <p key={index} className=" max-w-4xl">
+                  <p key={index} className=" max-w-4xl z-10">
                     {para}
                   </p>
                 ))}
               </div>
 
-              <div className=" flex flex-col gap-5">
-                <h1 className=" text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal font-redHatDisplay leading-tight md:leading-snug lg:leading-[62.40px] mb-3">
+              <div ref={benefitsRef} className=" flex flex-col gap-5">
+                <h1 className="z-10 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal font-redHatDisplay leading-tight md:leading-snug lg:leading-[62.40px] mb-3">
                   Benefits With{" "}
                   <span className="text-my-lightpurple">Our Service.</span>
                 </h1>
@@ -173,14 +304,14 @@ const ServicePage = () => {
                 </div>
               </div>
             </div>
-            <div className=" flex flex-col gap-5">
+            <div ref={servicesListRef} className=" flex flex-col gap-5">
               {SERVICES.map((service, index) => (
                 <div
                   key={index}
                   onClick={() => {
                     navigate(`/services/${service.slug}`);
                   }}
-                  className="flex items-center gap-5 justify-between px-6 rounded-lg border border-my-purple hover:shadow-myshadow1 py-5 w-full md:w-80 bg-bg1 transition-all cursor-pointer"
+                  className="flex z-10 items-center gap-5 justify-between px-6 rounded-lg border border-my-purple hover:shadow-myshadow1 py-5 w-full md:w-80 bg-bg1 transition-all cursor-pointer"
                 >
                   <div className="text-lg font-semibold">{service.title}</div>
                   <div className="w-12 h-12 flex-shrink-0 border border-my-purple bg-my-purple/20 rounded-full flex items-center justify-center text-white">
