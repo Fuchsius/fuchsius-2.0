@@ -132,19 +132,17 @@ const ReviewCarousel: React.FC<PropType> = (props) => {
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {slides.map((slide, index) => (
-            <div className="embla__slide h-full" key={slide.id || index}>
+            <div className="embla__slide h-full" key={index}>
               <div className="bg-bg2 h-full px-5 lg:px-8 py-12 rounded-xl min-h-96 flex flex-col">
                 <div className="mb-16 w-14 h-12">
                   <img src="/assets/images/comar.svg" alt="" />
                 </div>
-                <div className="text-lg lg:text-xl">
-                  {slide.description}
-                </div>
+                <div className="text-lg lg:text-xl">{slide.description}</div>
                 <div className="flex flex-col mt-16">
                   <h6 className="text-xl lg:text-2xl font-medium">
-                    {slide.name || 'Kalana Didulanga'}
+                    {slide.name || "Kalana Didulanga"}
                   </h6>
-                  <p>{slide.role || 'Full-Stack Developer'}</p>
+                  <p>{slide.role || "Full-Stack Developer"}</p>
                 </div>
               </div>
             </div>
