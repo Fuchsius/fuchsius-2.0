@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type FormData = {
   name: string;
@@ -32,6 +36,79 @@ const ContactSection: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
+  const glowRef1 = useRef<HTMLDivElement>(null);
+  const glowRef2 = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        contentRef.current?.children || [],
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        formRef.current?.children || [],
+        {
+          opacity: 0,
+          x: 30,
+          scale: 0.95,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: formRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        [glowRef1.current, glowRef2.current],
+        {
+          opacity: 0,
+          scale: 0.5,
+        },
+        {
+          opacity: 0.2,
+          scale: 1,
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -75,7 +152,6 @@ const ContactSection: React.FC = () => {
       [name]: value,
     }));
 
-    // Clear error when user starts typing
     if (errors[name as keyof FormData]) {
       setErrors((prev) => ({
         ...prev,
@@ -91,7 +167,6 @@ const ContactSection: React.FC = () => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Form submitted successfully:", formData);
@@ -104,7 +179,6 @@ const ContactSection: React.FC = () => {
         message: "",
       });
 
-      // Reset success message after 5 seconds
       setTimeout(() => {
         setSubmitSuccess(false);
       }, 5000);
@@ -116,16 +190,24 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="w-full text-white py-24 relative">
-      {/* Background glow effect */}
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-[var(--color-my-purple2)] opacity-20 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[var(--color-my-purple)] opacity-10 rounded-full blur-3xl -z-10"></div>
+    <section
+      ref={sectionRef}
+      id="contact"
+      className="w-full text-white py-24 relative"
+    >
+      <div
+        ref={glowRef1}
+        className="absolute top-0 left-1/4 w-64 h-64 bg-[var(--color-my-purple2)] opacity-20 rounded-full blur-3xl -z-10"
+      ></div>
+      <div
+        ref={glowRef2}
+        className="absolute bottom-0 right-1/4 w-96 h-96 bg-[var(--color-my-purple)] opacity-10 rounded-full blur-3xl -z-10"
+      ></div>
 
       <div className="my-container">
         <div className="rounded-xl bg-[url('/assets/images/bg2.svg')] bg-cover shadow-myshadow1 w-full p-8 lg:p-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left Column - Content */}
-            <div className="space-y-6 lg:space-y-8">
+            <div ref={contentRef} className="space-y-6 lg:space-y-8">
               <h3 className="text-my-purple uppercase tracking-wider font-semibold text-xl">
                 CONTACT US
               </h3>
@@ -144,8 +226,7 @@ const ContactSection: React.FC = () => {
               </p>
             </div>
 
-            {/* Right Column - Form */}
-            <div className="">
+            <div ref={formRef}>
               <h3 className="text-2xl md:text-3xl lg:text-4xl mb-6">
                 Make An{" "}
                 <span className="text-my-lightpurple">Appointment.</span>
