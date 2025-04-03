@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/header";
 import { SERVICES } from "@/data/services.data";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EmblaOptionsType } from "embla-carousel";
 import { Link, useNavigate, useParams } from "react-router";
 import { IoIosArrowForward } from "react-icons/io";
@@ -16,6 +16,9 @@ import FAQSection from "./FAQSection";
 import { useLocation } from "react-router-dom";
 
 const ServicePage = () => {
+  const leftBallRef = useRef(null);
+  const centerBallRef = useRef(null);
+  const rightBallRef = useRef(null);
 
   const location = useLocation();
 
@@ -23,19 +26,35 @@ const ServicePage = () => {
     window.scrollTo(0, 0);
   }, [location]); // This effect will run whenever the location changes
 
-
   let params = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<any>(null);
 
   const OPTIONS: EmblaOptionsType = { loop: true };
   // const SLIDE_COUNT = 3;
-  
-  const SLIDES = [
-    { id: 1, name: 'Sangeeth Prabhu', role: 'Founder Salon Prabhu', description: "Working with Fuchsius was a great experience. They delivered a modern, user-friendly website for Prabhu.lk that perfectly matches our vision. Highly recommended!" },
-    { id: 2, name: 'Ashara Chamodi', role: 'Founder Emi Fashion', description: "Fuchsius did an outstanding job on our website. They delivered a stylish, responsive site for EMI Fashion that perfectly aligns with our brand. We’re very happy with the result and recommend them without hesitation!"},
-    { id: 2, name: 'Praneetha', role: 'Founder Praneetha Foods', description: "We are very happy with the work done by Fuchsius Pvt Ltd on our website. They created a clean, easy-to-use site for Praneetha Foods that meets all our needs. We highly recommend their services!"},
 
+  const SLIDES = [
+    {
+      id: 1,
+      name: "Sangeeth Prabhu",
+      role: "Founder Salon Prabhu",
+      description:
+        "Working with Fuchsius was a great experience. They delivered a modern, user-friendly website for Prabhu.lk that perfectly matches our vision. Highly recommended!",
+    },
+    {
+      id: 2,
+      name: "Ashara Chamodi",
+      role: "Founder Emi Fashion",
+      description:
+        "Fuchsius did an outstanding job on our website. They delivered a stylish, responsive site for EMI Fashion that perfectly aligns with our brand. We’re very happy with the result and recommend them without hesitation!",
+    },
+    {
+      id: 2,
+      name: "Praneetha",
+      role: "Founder Praneetha Foods",
+      description:
+        "We are very happy with the work done by Fuchsius Pvt Ltd on our website. They created a clean, easy-to-use site for Praneetha Foods that meets all our needs. We highly recommend their services!",
+    },
   ];
 
   let navigate = useNavigate();
@@ -71,15 +90,36 @@ const ServicePage = () => {
       ) : (
         <>
           <div className=" w-full overflow-x-auto relative">
-            <div className="my-container py-32">
-              <div className="flex flex-col items-center justify-center relative gap-7">
-                <h1 className=" uppercase text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-redHatDisplay font-extrabold text-center bg-gradient-to-r from-my-black via-my-lightpurple to-my-black bg-clip-text text-transparent">
-                  {data?.title}
-                </h1>
-                <h6 className=" flex text-2xl lg:text-3xl font-redHatDisplay font-semibold gap-4 leading-10 text-center text-my-lightpurple">
-                  <Link to={"/"}>Home</Link>{" "}
-                  <IoIosArrowForward className=" my-auto" /> {data?.title}
-                </h6>
+            <div className=" w-full">
+              <div className="my-container py-32">
+                <div className="flex flex-col items-center justify-center relative gap-7">
+                  <h1 className=" uppercase text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-redHatDisplay font-extrabold text-center bg-gradient-to-r from-my-black via-my-lightpurple to-my-black bg-clip-text text-transparent">
+                    {data?.title}
+                  </h1>
+                  <h6 className=" flex text-2xl lg:text-3xl font-redHatDisplay font-semibold gap-4 leading-10 text-center text-my-lightpurple">
+                    <Link to={"/"}>Home</Link>{" "}
+                    <IoIosArrowForward className=" my-auto" /> {data?.title}
+                  </h6>
+                </div>
+              </div>
+              <div className="absolute w-full h-full top-0 z-0">
+                <div className="relative w-full h-full flex justify-center items-center">
+                  <div
+                    ref={leftBallRef}
+                    className="border object-left rotate-[-146.71deg] opacity-90 bg-gradient-to-l from-[#C60786] to-[#8400FF] 
+                  blur-[160px] rounded-full w-64 h-64 mix-blend-lighten -translate-x-[75%] "
+                  />
+                  {/* <div
+                  ref={centerBallRef}
+                  className="border object-center rotate-[-146.71deg] opacity-90 bg-gradient-to-l from-[#C60786] to-[#8400FF] 
+                  blur-[114.55px] rounded-full w-[480px] h-64 mix-blend-lighten "
+                  /> */}
+                  <div
+                    ref={rightBallRef}
+                    className="border object-right rotate-[-146.71deg] opacity-90 bg-gradient-to-l from-[#C60786] to-[#8400FF] 
+                  blur-[160px] rounded-full w-64 h-64 mix-blend-lighten translate-x-[75%]"
+                  />
+                </div>
               </div>
             </div>
           </div>
