@@ -130,11 +130,17 @@ const ContactSection: React.FC = () => {
                 CONTACT US
               </h3>
               <h2 className="text-3xl md:text-4xl lg:text-5xl leading-tight font-redHatDisplay">
-                Let's Start Your {" "}
+                Let's Start Your{" "}
                 <span className="text-my-lightpurple">Digital Journey.</span>
               </h2>
               <p className=" leading-8">
-                We value your feedback and inquiries! Whether you need support, want to discuss your next project, or just have a question, our team at Fuchsius Pvt Ltd. is ready to assist you. Fill out the contact form below, and we’ll make sure to get back to you as soon as possible. We're committed to providing exceptional service and solutions tailored to your needs. Let's connect and bring your ideas to life!
+                We value your feedback and inquiries! Whether you need support,
+                want to discuss your next project, or just have a question, our
+                team at Fuchsius Pvt Ltd. is ready to assist you. Fill out the
+                contact form below, and we’ll make sure to get back to you as
+                soon as possible. We're committed to providing exceptional
+                service and solutions tailored to your needs. Let's connect and
+                bring your ideas to life!
               </p>
             </div>
 
@@ -159,8 +165,9 @@ const ContactSection: React.FC = () => {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Enter Your Name"
-                    className={`w-full bg-[var(--color-my-black)]/50 border ${errors.name ? "border-red-500" : "border-gray-700"
-                      } rounded-lg p-3 focus:outline-none focus:border-[var(--color-my-purple)] transition`}
+                    className={`w-full bg-[var(--color-my-black)]/50 border ${
+                      errors.name ? "border-red-500" : "border-gray-700"
+                    } rounded-lg p-3 focus:outline-none focus:border-[var(--color-my-purple)] transition`}
                   />
                   {errors.name && (
                     <p className="mt-1 text-red-500 text-sm">{errors.name}</p>
@@ -174,8 +181,9 @@ const ContactSection: React.FC = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter Your Email"
-                    className={`w-full bg-[var(--color-my-black)]/50 border ${errors.email ? "border-red-500" : "border-gray-700"
-                      } rounded-lg p-3 focus:outline-none focus:border-[var(--color-my-purple)] transition`}
+                    className={`w-full bg-[var(--color-my-black)]/50 border ${
+                      errors.email ? "border-red-500" : "border-gray-700"
+                    } rounded-lg p-3 focus:outline-none focus:border-[var(--color-my-purple)] transition`}
                   />
                   {errors.email && (
                     <p className="mt-1 text-red-500 text-sm">{errors.email}</p>
@@ -187,9 +195,11 @@ const ContactSection: React.FC = () => {
                     name="consultation"
                     value={formData.consultation}
                     onChange={handleChange}
-                    className={`w-full bg-[var(--color-my-black)]/50 border ${errors.consultation ? "border-red-500" : "border-gray-700"
-                      } rounded-lg p-3 focus:outline-none focus:border-[var(--color-my-purple)] transition text-white ${!formData.consultation ? "text-gray-500" : ""
-                      }`}
+                    className={`w-full bg-[var(--color-my-black)]/50 border ${
+                      errors.consultation ? "border-red-500" : "border-gray-700"
+                    } rounded-lg p-3 focus:outline-none focus:border-[var(--color-my-purple)] transition text-white ${
+                      !formData.consultation ? "text-gray-500" : ""
+                    }`}
                   >
                     <option value="" className="">
                       Select
@@ -214,8 +224,9 @@ const ContactSection: React.FC = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="Phone Number"
-                    className={`w-full bg-[var(--color-my-black)]/50 border ${errors.phone ? "border-red-500" : "border-gray-700"
-                      } rounded-lg p-3 focus:outline-none focus:border-[var(--color-my-purple)] transition`}
+                    className={`w-full bg-[var(--color-my-black)]/50 border ${
+                      errors.phone ? "border-red-500" : "border-gray-700"
+                    } rounded-lg p-3 focus:outline-none focus:border-[var(--color-my-purple)] transition`}
                   />
                   {errors.phone && (
                     <p className="mt-1 text-red-500 text-sm">{errors.phone}</p>
@@ -229,8 +240,9 @@ const ContactSection: React.FC = () => {
                     onChange={handleChange}
                     placeholder="Write Your Message"
                     rows={4}
-                    className={`w-full bg-[var(--color-my-black)]/50 border ${errors.message ? "border-red-500" : "border-gray-700"
-                      } rounded-lg p-3 focus:outline-none focus:border-[var(--color-my-purple)] transition resize-none`}
+                    className={`w-full bg-[var(--color-my-black)]/50 border ${
+                      errors.message ? "border-red-500" : "border-gray-700"
+                    } rounded-lg p-3 focus:outline-none focus:border-[var(--color-my-purple)] transition resize-none`}
                   ></textarea>
                   {errors.message && (
                     <p className="mt-1 text-red-500 text-sm">

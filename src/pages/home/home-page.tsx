@@ -4,15 +4,10 @@ import Header from "@/components/header";
 import ServicesCarousel from "@/components/ServicesCarousel";
 import { SERVICES } from "@/data/services.data";
 import { EmblaOptionsType } from "embla-carousel";
-import { FaRegCalendarCheck } from "react-icons/fa";
-import { AiOutlineSafety } from "react-icons/ai";
-import { RiGroupLine } from "react-icons/ri";
-import { FaRegLaugh } from "react-icons/fa";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ReviewCarousel from "@/components/ReviewsCarousel";
 import HeroSection from "./hero-section";
-import { TiTick } from "react-icons/ti";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css"; // Swiper CSS
@@ -24,6 +19,8 @@ import ScrollToSection from "@/components/ScrollToSection";
 
 import { useLocation } from "react-router-dom";
 import AboutSection from "./about-section";
+import WhyChoodrUs from "./WhyChoodrUs";
+import Section5 from "./Section5";
 
 export const LOGOS = [
   "/assets/logos/travelgate.svg",
@@ -108,155 +105,9 @@ const HomePage = () => {
 
       <AboutSection />
 
-      <div className="w-full py-12 md:py-16 lg:py-24">
-        <div className="my-container">
-          <div className="flex flex-col lg:flex-row gap-y-16 lg:gap-y-0 lg:gap-x-8">
-            {/* Left Column */}
-            <div className="flex flex-col gap-y-8 w-full">
-              <div className="uppercase text-xl font-semibold tracking-wide text-my-purple">
-                Why choose us
-              </div>
-              <div className="self-stretch">
-                <span className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal font-redHatDisplay leading-tight md:leading-snug lg:leading-[62.40px]">
-                  We Provide
-                  <br className="hidden md:block" />
-                  Exclusive Service
-                  <br className="hidden md:block" />
-                </span>
-                <span className="text-purple-300 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal font-redHatDisplay leading-tight md:leading-snug lg:leading-[62.40px]">
-                  For Your Business.
-                </span>
-              </div>
+      <WhyChoodrUs />
 
-              <div className="w-full">
-                <img
-                  src="/assets/images/image1.svg"
-                  alt="Fuchsius"
-                  className="lg:w-9/12 object-cover w-full"
-                />
-              </div>
-            </div>
-
-            {/* Right Column - Feature Cards */}
-            <div className="w-full lg:h-auto relative flex justify-center items-center py-16 md:py-20 lg:py-0">
-              <div className="flex flex-col gap-y-8 md:gap-y-12 z-20 w-full">
-                {/* First row */}
-                <div className="flex flex-col md:flex-row gap-6 md:gap-x-8 w-full">
-                  <div className="flex items-center justify-between px-6 rounded-lg shadow-myshadow1 py-5 w-full  bg-bg1">
-                    <div className="text-lg font-semibold">
-                      Big Data Analysis
-                    </div>
-                    <div className="w-12 h-12 flex-shrink-0 border border-my-purple bg-my-purple/20 rounded-full flex items-center justify-center text-white">
-                      <TiTick size={24} />
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between px-6 rounded-lg shadow-myshadow1 py-5 w-full  bg-bg1">
-                    <div className="text-lg font-semibold">
-                      High Quality Security
-                    </div>
-                    <div className="w-12 h-12 flex-shrink-0 border border-my-purple bg-my-purple/20 rounded-full flex items-center justify-center text-white">
-                      <TiTick size={24} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Second row - with offset on larger screens */}
-                <div className="flex flex-col md:flex-row gap-6 md:gap-x-8 w-full md:ml-0 lg:-ml-32">
-                  <div className="flex items-center justify-between px-6 rounded-lg shadow-myshadow1 py-5 w-full  bg-bg1">
-                    <div className="text-lg font-semibold">
-                      24/7 Online Support
-                    </div>
-                    <div className="w-12 h-12 flex-shrink-0 border border-my-purple bg-my-purple/20 rounded-full flex items-center justify-center text-white">
-                      <TiTick size={24} />
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between px-6 rounded-lg shadow-myshadow1 py-5 w-full  bg-bg1">
-                    <div className="text-lg font-semibold">
-                      24/7 Support Team
-                    </div>
-                    <div className="w-12 h-12 flex-shrink-0 border border-my-purple bg-my-purple/20 rounded-full flex items-center justify-center text-white">
-                      <TiTick size={24} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Third row */}
-                <div className="flex flex-col md:flex-row gap-6 md:gap-x-8 w-full">
-                  <div className="flex items-center justify-between px-6 rounded-lg shadow-myshadow1 py-5 w-full  bg-bg1">
-                    <div className="text-lg font-semibold">
-                      Business Improvement
-                    </div>
-                    <div className="w-12 h-12 flex-shrink-0 border border-my-purple bg-my-purple/20 rounded-full flex items-center justify-center text-white">
-                      <TiTick size={24} />
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between px-6 rounded-lg shadow-myshadow1 py-5 w-full  bg-bg1">
-                    <div className="text-lg font-semibold">Easy Solutions</div>
-                    <div className="w-12 h-12 flex-shrink-0 border border-my-purple bg-my-purple/20 rounded-full flex items-center justify-center text-white">
-                      <TiTick size={24} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full py-12">
-        <div className="my-container w-full">
-          <div className=" bg-gradient-to-b from-my-purple2 via-my-lightpurple to-my-purple px-[1px] rounded-lg w-full">
-            <div className=" w-full h-full p-8 bg-my-black rounded-lg">
-              <div className=" w-full grid grid-cols-2 lg:grid-cols-4 gap-5 ">
-                <div className=" sm:flex items-center gap-4 block">
-                  <div className="w-full sm:w-auto flex justify-center sm:block">
-                    <div className=" text-white bg-my-purple w-24 h-24 flex items-center justify-center rounded-lg">
-                      <FaRegCalendarCheck size={32} />
-                    </div>
-                  </div>
-                  <div className=" flex flex-col sm:mt-0 sm:text-left text-center mt-4">
-                    <div className=" font-semibold text-3xl">2+</div>
-                    <div>Year Of experience</div>
-                  </div>
-                </div>
-                <div className=" sm:flex items-center gap-4 block">
-                  <div className="w-full sm:w-auto flex justify-center sm:block">
-                    <div className=" text-white bg-my-purple w-24 h-24 flex items-center justify-center rounded-lg">
-                      <AiOutlineSafety size={32} />
-                    </div>
-                  </div>
-                  <div className=" flex flex-col sm:mt-0 sm:text-left text-center mt-4">
-                    <div className=" font-semibold text-3xl">50+</div>
-                    <div>Project Complete</div>
-                  </div>
-                </div>
-                <div className=" sm:flex items-center gap-4 block">
-                  <div className="w-full sm:w-auto flex justify-center sm:block">
-                    <div className=" text-white bg-my-purple w-24 h-24 flex items-center justify-center rounded-lg">
-                      <RiGroupLine size={32} />
-                    </div>
-                  </div>
-                  <div className=" flex flex-col sm:mt-0 sm:text-left text-center mt-4">
-                    <div className=" font-semibold text-3xl">40+</div>
-                    <div>Team Members</div>
-                  </div>
-                </div>
-                <div className=" sm:flex items-center gap-4 block">
-                  <div className="w-full sm:w-auto flex justify-center sm:block">
-                    <div className=" text-white bg-my-purple w-24 h-24 flex items-center justify-center rounded-lg">
-                      <FaRegLaugh size={32} />
-                    </div>
-                  </div>
-                  <div className=" flex flex-col sm:mt-0 sm:text-left text-center mt-4">
-                    <div className=" font-semibold text-3xl">50+</div>
-                    <div>Satisfied Clients</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Section5 />
 
       <ContactSection />
 
